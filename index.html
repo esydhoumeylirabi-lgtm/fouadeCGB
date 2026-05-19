@@ -210,14 +210,14 @@
     .side-menu {
       position: fixed;
       top: 0;
-      left: -280px;
+      right: -280px;
       width: 280px;
       height: 100vh;
       background: rgba(5, 7, 10, 0.98);
       backdrop-filter: blur(20px);
-      border-left: 1px solid rgba(212, 175, 55, 0.2);
+      border-right: 1px solid rgba(212, 175, 55, 0.2);
       z-index: 1003;
-      transition: left 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      transition: right 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       padding: 80px 20px 30px;
       display: flex;
       flex-direction: column;
@@ -225,7 +225,7 @@
     }
 
     .side-menu.open {
-      left: 0;
+      right: 0;
     }
 
     .side-flags {
@@ -291,7 +291,7 @@
     .close-menu-btn {
       position: absolute;
       top: 20px;
-      left: 20px;
+      right: 20px;
       background: rgba(212, 175, 55, 0.15);
       border: none;
       color: #d4af37;
@@ -932,7 +932,7 @@
   </footer>
 
   <script>
-    // بيانات المحتوى (مختصرة للتوفير - نفس البيانات السابقة)
+    // بيانات المحتوى
     const goalsDataAr = [
       "تعزيز الحوار الثقافي البنّاء بين الحضارات والثقافات المختلفة",
       "نشر الثقافة والمعرفة الفكرية، وإتاحة المحتوى الثقافي لمختلف المجتمعات",
@@ -944,6 +944,58 @@
       "دعم حركة الترجمة ونقل المعرفة بين اللغات والثقافات المختلفة",
       "تنظيم فعاليات ثقافية وعلمية لتعزيز التواصل الفكري",
       "تمكين الشباب والمبادرات الناشئة في العمل الثقافي والحوار الحضاري"
+    ];
+
+    const goalsDataEn = [
+      "Enhance constructive cultural dialogue between different civilizations and cultures",
+      "Disseminate culture and intellectual knowledge, making cultural content accessible to various societies",
+      "Encourage cultural and intellectual exchange between researchers and intellectuals worldwide",
+      "Support studies, research, and articles that contribute to consolidating civilizational dialogue",
+      "Build an international network of researchers, intellectuals, and those interested in cultural dialogue",
+      "Establish partnerships with cultural institutions, universities, and international organizations",
+      "Contribute to spreading values of peace, understanding, and coexistence among peoples",
+      "Support the translation movement and knowledge transfer between different languages and cultures",
+      "Organize cultural and scientific events to enhance intellectual communication",
+      "Empower youth and emerging initiatives in cultural work and civilizational dialogue"
+    ];
+
+    const goalsDataFr = [
+      "Renforcer le dialogue culturel constructif entre les différentes civilisations et cultures",
+      "Diffuser la culture et la connaissance intellectuelle, rendre le contenu culturel accessible à diverses sociétés",
+      "Encourager les échanges culturels et intellectuels entre chercheurs et intellectuels du monde entier",
+      "Soutenir les études, recherches et articles qui contribuent à consolider le dialogue civilisationnel",
+      "Construire un réseau international de chercheurs, d'intellectuels et de personnes intéressées par le dialogue culturel",
+      "Établir des partenariats avec des institutions culturelles, universités et organisations internationales",
+      "Contribuer à la diffusion des valeurs de paix, de compréhension et de coexistence entre les peuples",
+      "Soutenir le mouvement de traduction et le transfert de connaissances entre différentes langues et cultures",
+      "Organiser des événements culturels et scientifiques pour renforcer la communication intellectuelle",
+      "Autonomiser les jeunes et les initiatives émergentes dans le travail culturel et le dialogue civilisationnel"
+    ];
+
+    const goalsDataRu = [
+      "Укреплять конструктивный культурный диалог между различными цивилизациями и культурами",
+      "Распространять культуру и интеллектуальные знания, делая культурный контент доступным для различных обществ",
+      "Поощрять культурный и интеллектуальный обмен между исследователями и интеллектуалами по всему миру",
+      "Поддерживать исследования, научные работы и статьи, способствующие укреплению цивилизационного диалога",
+      "Создать международную сеть исследователей, интеллектуалов и заинтересованных в культурном диалоге",
+      "Устанавливать партнерские отношения с культурными учреждениями, университетами и международными организациями",
+      "Способствовать распространению ценностей мира, взаимопонимания и сосуществования между народами",
+      "Поддерживать движение перевода и передачу знаний между различными языками и культурами",
+      "Организовывать культурные и научные мероприятия для усиления интеллектуальной коммуникации",
+      "Расширять возможности молодежи и новых инициатив в культурной работе и цивилизационном диалоге"
+    ];
+
+    const goalsDataEs = [
+      "Mejorar el diálogo cultural constructivo entre diferentes civilizaciones y culturas",
+      "Difundir la cultura y el conocimiento intelectual, haciendo que el contenido cultural sea accesible para diversas sociedades",
+      "Fomentar el intercambio cultural e intelectual entre investigadores e intelectuales de todo el mundo",
+      "Apoyar estudios, investigaciones y artículos que contribuyan a consolidar el diálogo civilizatorio",
+      "Construir una red internacional de investigadores, intelectuales e interesados en el diálogo cultural",
+      "Establecer alianzas con instituciones culturales, universidades y organizaciones internacionales",
+      "Contribuir a difundir los valores de paz, comprensión y convivencia entre los pueblos",
+      "Apoyar el movimiento de traducción y la transferencia de conocimiento entre diferentes idiomas y culturas",
+      "Organizar eventos culturales y científicos para mejorar la comunicación intelectual",
+      "Empoderar a los jóvenes y las iniciativas emergentes en el trabajo cultural y el diálogo civilizatorio"
     ];
 
     const fieldsData = [
@@ -973,7 +1025,31 @@
       '<i class="fas fa-language"></i> اللغة','<i class="fas fa-handshake"></i> التعاون الإنساني'
     ];
 
-    // الترجمات (مختصرة ولكن كاملة في الملف النهائي)
+    const founderBadgesEn = [
+      '<i class="fas fa-globe"></i> Civilizational Dialogue','<i class="fas fa-landmark"></i> Cultural Diplomacy',
+      '<i class="fas fa-tv"></i> Media','<i class="fas fa-gavel"></i> Legal Thought',
+      '<i class="fas fa-language"></i> Language','<i class="fas fa-handshake"></i> Humanitarian Cooperation'
+    ];
+
+    const founderBadgesFr = [
+      '<i class="fas fa-globe"></i> Dialogue des civilisations','<i class="fas fa-landmark"></i> Diplomatie culturelle',
+      '<i class="fas fa-tv"></i> Médias','<i class="fas fa-gavel"></i> Pensée juridique',
+      '<i class="fas fa-language"></i> Langue','<i class="fas fa-handshake"></i> Coopération humanitaire'
+    ];
+
+    const founderBadgesRu = [
+      '<i class="fas fa-globe"></i> Цивилизационный диалог','<i class="fas fa-landmark"></i> Культурная дипломатия',
+      '<i class="fas fa-tv"></i> Медиа','<i class="fas fa-gavel"></i> Юридическая мысль',
+      '<i class="fas fa-language"></i> Язык','<i class="fas fa-handshake"></i> Гуманитарное сотрудничество'
+    ];
+
+    const founderBadgesEs = [
+      '<i class="fas fa-globe"></i> Diálogo Civilizatorio','<i class="fas fa-landmark"></i> Diplomacia Cultural',
+      '<i class="fas fa-tv"></i> Medios','<i class="fas fa-gavel"></i> Pensamiento Jurídico',
+      '<i class="fas fa-language"></i> Idioma','<i class="fas fa-handshake"></i> Cooperación Humanitaria'
+    ];
+
+    // الترجمات الكاملة
     const translations = {
       ar: {
         logo_sub: "الجسر الثقافي العالمي", logo_sub_mobile: "الجسر الثقافي العالمي",
@@ -1030,21 +1106,20 @@
       },
       en: {
         logo_sub: "Global Cultural Bridge", logo_sub_mobile: "Global Cultural Bridge",
-        nav_home: "Home", nav_about: "About", nav_vision: "Vision", nav_goals: "Goals", nav_fields: "Fields",
-        nav_target: "Target", nav_values: "Values", nav_contact: "Contact Us", nav_founder: "Founder",
-        nav_home_mobile: "Home", nav_about_mobile: "About", nav_vision_mobile: "Vision", nav_goals_mobile: "Goals",
-        nav_fields_mobile: "Fields", nav_target_mobile: "Target", nav_values_mobile: "Values", nav_contact_mobile: "Contact Us", nav_founder_mobile: "Founder",
+        nav_home: "Home", nav_about: "About Us", nav_vision: "Vision", nav_goals: "Goals", nav_fields: "Fields of Work",
+        nav_target: "Target Groups", nav_values: "Values", nav_contact: "Contact Us", nav_founder: "Founder",
+        nav_home_mobile: "Home", nav_about_mobile: "About Us", nav_vision_mobile: "Vision", nav_goals_mobile: "Goals",
+        nav_fields_mobile: "Fields of Work", nav_target_mobile: "Target Groups", nav_values_mobile: "Values", nav_contact_mobile: "Contact Us", nav_founder_mobile: "Founder",
         hero_badge: "Independent International Cultural Initiative",
         hero_title1: "Global Cultural Bridge<br><span style='font-size: 2rem;'>GCB</span>",
         hero_subtitle: "An independent international cultural initiative aimed at enhancing dialogue between civilizations and cultures, and encouraging cultural and intellectual exchange among peoples.<br>We strive to build human bridges based on knowledge, understanding, and mutual respect.",
-        about_title: "About Us", about_charter: "",
+        about_title: "About Us", about_charter: "GCB Internal Charter",
         about_p1: "Global Cultural Bridge (GCB) is an independent international cultural initiative that aims to enhance dialogue between civilizations and cultures, and encourage cultural and intellectual exchange among peoples.",
         about_p2: "The initiative seeks to build human bridges based on knowledge, understanding, and mutual respect, by supporting and producing cultural and intellectual projects that contribute to strengthening communication between different societies.",
         about_p3: "We work to publish cultural articles, intellectual studies, and translation works, encouraging researchers and intellectuals from around the world to engage in constructive civilizational dialogue and exchange cultural experiences.",
         vision_title: "Vision & Mission", vision_vision_title: "Vision", vision_vision_text: "To become a leading international cultural platform, effectively contributing to enhancing dialogue between civilizations and building sustainable bridges for cultural communication among peoples.",
-        vision_mission_title: "Mission", vision_mission_text: "Supporting global cultural dialogue through knowledge dissemination and enhancing intellectual exchange between researchers and intellectuals, contributing to building a cultural space based on respect for civilizational diversity.",
-        goals_title: "Strategic Goals",
-        goals_list: ["Enhance constructive cultural dialogue between different civilizations and cultures","Disseminate culture and intellectual knowledge, making cultural content accessible to various societies","Encourage cultural and intellectual exchange between researchers and intellectuals worldwide","Support studies, research, and articles that contribute to consolidating civilizational dialogue","Build an international network of researchers, intellectuals, and those interested in cultural dialogue","Establish partnerships with cultural institutions, universities, and international organizations","Contribute to spreading values of peace, understanding, and coexistence among peoples","Support the translation movement and knowledge transfer between different languages and cultures","Organize cultural and scientific events to enhance intellectual communication","Empower youth and emerging initiatives in cultural work and civilizational dialogue"],
+        vision_mission_title: "Mission", vision_mission_text: "Supporting global cultural dialogue through knowledge dissemination and enhancing intellectual exchange between researchers and intellectuals, contributing to building a cultural space based on respect for civilizational diversity and promoting values of cooperation and understanding among peoples.",
+        goals_title: "Strategic Goals", goals_list: goalsDataEn,
         fields_title: "Fields of Work",
         f1: { title: "Dialogue between Civilizations and Cultures", desc: "Enhancing mutual understanding and encouraging constructive intellectual discussions among different cultures." },
         f2: { title: "Cultural and Intellectual Studies", desc: "Producing and supporting research and studies addressing cultural and civilizational issues in multiple languages." },
@@ -1063,7 +1138,7 @@
         target_title: "Target Groups",
         t1: { title: "Researchers and Academics", desc: "In the fields of cultural and intellectual studies" }, t2: { title: "Intellectuals and Thinkers", desc: "From various intellectual and civilizational orientations" },
         t3: { title: "Writers and Literary Figures", desc: "Interested in culture and cultural diversity issues" }, t4: { title: "Youth Interested in Culture", desc: "Especially those with cultural initiatives" },
-        t5: { title: "University Students", desc: "In humanities and social sciences" }, t6: { title: "Universities and Academic Institutions", desc: "Seeking cultural and scientific cooperation" },
+        t5: { title: "University Students", desc: "In various disciplines" }, t6: { title: "Universities and Academic Institutions", desc: "Seeking cultural and scientific cooperation" },
         t7: { title: "Research and Intellectual Centers", desc: "Interested in civilizational dialogue" }, t8: { title: "Cultural Institutions", desc: "Local and international" },
         t9: { title: "International Organizations", desc: "Concerned with cultural dialogue and civilizational diversity" }, t10: { title: "Translators", desc: "Interested in transferring knowledge between languages and cultures" },
         t11: { title: "Media Professionals and Content Creators", desc: "On digital platforms" }, t12: { title: "Cultural Policy Makers", desc: "Interested in cultural diplomacy" },
@@ -1077,16 +1152,171 @@
         contact_email_title: "Email", contact_website_title: "Our Website on Ahewar.org", contact_instagram_title: "Instagram",
         contact_footer: "<p>We are happy to communicate with you and share in building bridges of knowledge and culture between peoples.</p>",
         founder_title: "Founder", founder_name: "Fouad Ahmed Ayesh", founder_title_txt: "Writer and researcher in cultural and international legal affairs, from the Hashemite Kingdom of Jordan",
-        founder_badges: ['<i class="fas fa-globe"></i> Civilizational Dialogue','<i class="fas fa-landmark"></i> Cultural Diplomacy','<i class="fas fa-tv"></i> Media','<i class="fas fa-gavel"></i> Legal Thought','<i class="fas fa-language"></i> Language','<i class="fas fa-handshake"></i> Humanitarian Cooperation'],
+        founder_badges: founderBadgesEn,
         founder_message: `<h4>📖 Founder's Statement</h4><p>We believe that culture is not merely an inheritance, but a living force capable of building bridges between peoples and enhancing human understanding in a changing world.</p><p>From this standpoint, the "Global Cultural Bridge" initiative was launched to be an open space for intellectual dialogue, a platform for exchanging ideas and enhancing communication between different cultures, based on a firm conviction that dialogue is the path toward a more cooperative and stable future.</p><p>Through this initiative, we seek to contribute to strengthening Arab cultural presence on the international scene and building human bonds based on mutual respect and cultural diversity.</p><p style="margin-top: 1rem; color: #d4af37;">Fouad Ahmed Ayesh</p>`,
         thanks_message: `<h4>🙏 Thanks and Appreciation</h4><p>We extend our sincere thanks and appreciation to all parties, institutions, and individuals who have contributed to supporting the "Global Cultural Bridge" initiative, and have contributed to the success of its activities and the enhancement of its cultural message.</p><p>This work would not have been achieved without the spirit of cooperation and shared belief in the importance of civilizational dialogue and cultural exchange between peoples.</p><p>We express our pride in the partnerships and collaborations that have contributed to building this initiative, and we look forward to more joint work that reinforces the values of understanding and cultural openness.</p><p>We also appreciate the support of all participants and followers who have been part of this cultural journey.</p><p style="margin-top: 1rem; color: #d4af37;">With sincere thanks and appreciation.</p>`,
         footer_copyright: "© 2025 Global Cultural Bridge (GCB)", footer_tagline: "Building human bridges based on knowledge, understanding, and mutual respect"
+      },
+      fr: {
+        logo_sub: "Pont Culturel Mondial", logo_sub_mobile: "Pont Culturel Mondial",
+        nav_home: "Accueil", nav_about: "À propos", nav_vision: "Vision", nav_goals: "Objectifs", nav_fields: "Domaines",
+        nav_target: "Groupes cibles", nav_values: "Valeurs", nav_contact: "Contactez-nous", nav_founder: "Fondateur",
+        nav_home_mobile: "Accueil", nav_about_mobile: "À propos", nav_vision_mobile: "Vision", nav_goals_mobile: "Objectifs",
+        nav_fields_mobile: "Domaines", nav_target_mobile: "Groupes cibles", nav_values_mobile: "Valeurs", nav_contact_mobile: "Contactez-nous", nav_founder_mobile: "Fondateur",
+        hero_badge: "Initiative Culturelle Internationale Indépendante",
+        hero_title1: "Pont Culturel Mondial<br><span style='font-size: 2rem;'>GCB</span>",
+        hero_subtitle: "Une initiative culturelle internationale indépendante visant à renforcer le dialogue entre les civilisations et les cultures, et à encourager les échanges culturels et intellectuels entre les peuples.<br>Nous nous efforçons de construire des ponts humains basés sur la connaissance, la compréhension et le respect mutuel.",
+        about_title: "À propos", about_charter: "Charte interne du PCM",
+        about_p1: "Le Pont Culturel Mondial (PCM) est une initiative culturelle internationale indépendante qui vise à renforcer le dialogue entre les civilisations et les cultures, et à encourager les échanges culturels et intellectuels entre les peuples.",
+        about_p2: "L'initiative cherche à construire des ponts humains basés sur la connaissance, la compréhension et le respect mutuel, en soutenant et en produisant des projets culturels et intellectuels qui contribuent à renforcer la communication entre les différentes sociétés.",
+        about_p3: "Nous travaillons à publier des articles culturels, des études intellectuelles et des travaux de traduction, encourageant les chercheurs et les intellectuels du monde entier à s'engager dans un dialogue civilisationnel constructif et à échanger des expériences culturelles.",
+        vision_title: "Vision et Mission", vision_vision_title: "Vision", vision_vision_text: "Devenir une plateforme culturelle internationale de premier plan, contribuant efficacement au renforcement du dialogue entre les civilisations et à la construction de ponts durables pour la communication culturelle entre les peuples.",
+        vision_mission_title: "Mission", vision_mission_text: "Soutenir le dialogue culturel mondial par la diffusion des connaissances et le renforcement des échanges intellectuels entre chercheurs et intellectuels, contribuant à la construction d'un espace culturel fondé sur le respect de la diversité civilisationnelle et la promotion des valeurs de coopération et de compréhension entre les peuples.",
+        goals_title: "Objectifs Stratégiques", goals_list: goalsDataFr,
+        fields_title: "Domaines d'activité",
+        f1: { title: "Dialogue entre civilisations et cultures", desc: "Renforcer la compréhension mutuelle et encourager les discussions intellectuelles constructives entre différentes cultures." },
+        f2: { title: "Études culturelles et intellectuelles", desc: "Produire et soutenir la recherche et les études traitant des questions culturelles et civilisationnelles dans plusieurs langues." },
+        f3: { title: "Échange culturel international", desc: "Renforcer l'interaction culturelle entre les individus et les institutions à travers des programmes et initiatives internationaux." },
+        f4: { title: "Publication culturelle et de connaissances", desc: "Publier des articles, des recherches et des documents intellectuels sur diverses plateformes." },
+        f5: { title: "Traduction et transfert de connaissances", desc: "Soutenir la traduction d'œuvres intellectuelles et culturelles entre les langues pour renforcer la compréhension mutuelle." },
+        f6: { title: "Éducation culturelle non formelle", desc: "Organiser des programmes éducatifs et des ateliers pour renforcer la conscience culturelle." },
+        f7: { title: "Organisation d'événements culturels", desc: "Tenir des conférences, séminaires et forums intellectuels aux niveaux local et international." },
+        f8: { title: "Diplomatie culturelle", desc: "Renforcer le rôle de la culture comme moyen de rapprochement entre les peuples et de construction de relations internationales positives." },
+        f9: { title: "Autonomisation des jeunes dans le travail culturel", desc: "Soutenir les initiatives des jeunes et développer leurs compétences dans les domaines de la culture et du dialogue." },
+        f10: { title: "Diversité culturelle et protection de l'identité", desc: "Promouvoir le respect de la diversité culturelle et préserver les différentes identités culturelles." },
+        f11: { title: "Médias culturels numériques", desc: "Utiliser les médias numériques pour diffuser la culture et renforcer le dialogue mondial." },
+        f12: { title: "Construction de partenariats internationaux", desc: "Collaboration avec les universités, centres de recherche et organisations culturelles du monde entier." },
+        f13: { title: "Paix et coexistence", desc: "Promouvoir une culture de paix à travers le travail culturel." },
+        f14: { title: "Innovation culturelle", desc: "Encourager l'utilisation de la technologie et de la créativité dans le développement de projets culturels." },
+        target_title: "Groupes Cibles",
+        t1: { title: "Chercheurs et universitaires", desc: "Dans les domaines des études culturelles et intellectuelles" }, t2: { title: "Intellectuels et penseurs", desc: "De diverses orientations intellectuelles et civilisationnelles" },
+        t3: { title: "Écrivains et personnalités littéraires", desc: "Intéressés par les enjeux culturels et de diversité culturelle" }, t4: { title: "Jeunes intéressés par la culture", desc: "Particulièrement ceux ayant des initiatives culturelles" },
+        t5: { title: "Étudiants universitaires", desc: "Dans diverses disciplines" }, t6: { title: "Universités et institutions académiques", desc: "Cherchant une coopération culturelle et scientifique" },
+        t7: { title: "Centres de recherche et intellectuels", desc: "Intéressés par le dialogue civilisationnel" }, t8: { title: "Institutions culturelles", desc: "Locales et internationales" },
+        t9: { title: "Organisations internationales", desc: "Préoccupées par le dialogue culturel et la diversité civilisationnelle" }, t10: { title: "Traducteurs", desc: "Intéressés par le transfert de connaissances entre langues et cultures" },
+        t11: { title: "Professionnels des médias et créateurs de contenu", desc: "Sur les plateformes numériques" }, t12: { title: "Décideurs en politiques culturelles", desc: "Intéressés par la diplomatie culturelle" },
+        values_title: "Nos Valeurs Fondamentales",
+        v1: { title: "Dialogue culturel constructif", desc: "Comme outil pour rapprocher les perspectives entre les peuples" }, v2: { title: "Respect de la diversité civilisationnelle", desc: "Non-discrimination entre les cultures" },
+        v3: { title: "Coopération et partenariat", desc: "Entre les peuples et les institutions pour atteindre des objectifs communs" }, v4: { title: "Diffusion des connaissances", desc: "De manière transparente et accessible à tous" },
+        v5: { title: "Renforcement de la compréhension humaine", desc: "Comme base de la paix et de la coexistence pacifique" }, v6: { title: "Durabilité culturelle", desc: "Préserver le patrimoine et l'identité culturelle" },
+        v7: { title: "Innovation et créativité", desc: "Dans la présentation de projets culturels et intellectuels" }, v8: { title: "Crédibilité et transparence", desc: "Dans le travail institutionnel et administratif" },
+        contact_title: "Contactez-nous",
+        contact_message: "<p>L'initiative Pont Culturel Mondial est heureuse de recevoir vos demandes et suggestions, et nous accueillons toutes les opinions et idées qui contribuent à renforcer le dialogue culturel et civilisationnel.</p>",
+        contact_email_title: "E-mail", contact_website_title: "Notre site sur Ahewar.org", contact_instagram_title: "Instagram",
+        contact_footer: "<p>Nous sommes heureux de communiquer avec vous et de partager la construction de ponts de connaissance et de culture entre les peuples.</p>",
+        founder_title: "Fondateur", founder_name: "Fouad Ahmed Ayesh", founder_title_txt: "Écrivain et chercheur en affaires culturelles et juridiques internationales, du Royaume Hachémite de Jordanie",
+        founder_badges: founderBadgesFr,
+        founder_message: `<h4>📖 Déclaration du Fondateur</h4><p>Nous croyons que la culture n'est pas simplement un héritage, mais une force vivante capable de construire des ponts entre les peuples et de renforcer la compréhension humaine dans un monde en mutation.</p><p>De ce point de vue, l'initiative «Pont Culturel Mondial» a été lancée pour être un espace ouvert au dialogue intellectuel, une plateforme d'échange d'idées et de renforcement de la communication entre différentes cultures, basée sur la conviction ferme que le dialogue est la voie vers un avenir plus coopératif et plus stable.</p><p>À travers cette initiative, nous cherchons à contribuer au renforcement de la présence culturelle arabe sur la scène internationale et à construire des liens humains basés sur le respect mutuel et la diversité culturelle.</p><p style="margin-top: 1rem; color: #d4af37;">Fouad Ahmed Ayesh</p>`,
+        thanks_message: `<h4>🙏 Remerciements</h4><p>Nous adressons nos sincères remerciements et notre gratitude à toutes les parties, institutions et individus qui ont contribué à soutenir l'initiative «Pont Culturel Mondial» et qui ont contribué au succès de ses activités et au renforcement de son message culturel.</p><p>Ce travail n'aurait pas été réalisé sans l'esprit de coopération et la conviction partagée de l'importance du dialogue civilisationnel et des échanges culturels entre les peuples.</p><p>Nous exprimons notre fierté pour les partenariats et les collaborations qui ont contribué à la construction de cette initiative, et nous espérons un travail plus conjoint qui renforce les valeurs de compréhension et d'ouverture culturelle.</p><p>Nous apprécions également le soutien de tous les participants et abonnés qui ont fait partie de ce parcours culturel.</p><p style="margin-top: 1rem; color: #d4af37;">Avec nos sincères remerciements.</p>`,
+        footer_copyright: "© 2025 Pont Culturel Mondial (GCB)", footer_tagline: "Construire des ponts humains basés sur la connaissance, la compréhension et le respect mutuel"
+      },
+      ru: {
+        logo_sub: "Глобальный культурный мост", logo_sub_mobile: "Глобальный культурный мост",
+        nav_home: "Главная", nav_about: "О нас", nav_vision: "Видение", nav_goals: "Цели", nav_fields: "Сферы деятельности",
+        nav_target: "Целевые группы", nav_values: "Ценности", nav_contact: "Контакты", nav_founder: "Основатель",
+        nav_home_mobile: "Главная", nav_about_mobile: "О нас", nav_vision_mobile: "Видение", nav_goals_mobile: "Цели",
+        nav_fields_mobile: "Сферы деятельности", nav_target_mobile: "Целевые группы", nav_values_mobile: "Ценности", nav_contact_mobile: "Контакты", nav_founder_mobile: "Основатель",
+        hero_badge: "Независимая международная культурная инициатива",
+        hero_title1: "Глобальный культурный мост<br><span style='font-size: 2rem;'>GCB</span>",
+        hero_subtitle: "Независимая международная культурная инициатива, направленная на укрепление диалога между цивилизациями и культурами, поощрение культурного и интеллектуального обмена между народами.<br>Мы стремимся строить человеческие мосты, основанные на знаниях, взаимопонимании и взаимном уважении.",
+        about_title: "О нас", about_charter: "Внутренняя хартия GCB",
+        about_p1: "Глобальный культурный мост (GCB) - это независимая международная культурная инициатива, направленная на укрепление диалога между цивилизациями и культурами, поощрение культурного и интеллектуального обмена между народами.",
+        about_p2: "Инициатива стремится строить человеческие мосты, основанные на знаниях, взаимопонимании и взаимном уважении, поддерживая и создавая культурные и интеллектуальные проекты, способствующие укреплению связи между различными обществами.",
+        about_p3: "Мы работаем над публикацией культурных статей, интеллектуальных исследований и переводов, поощряя исследователей и интеллектуалов со всего мира участвовать в конструктивном цивилизационном диалоге и обмениваться культурным опытом.",
+        vision_title: "Видение и Миссия", vision_vision_title: "Видение", vision_vision_text: "Стать ведущей международной культурной платформой, эффективно способствующей укреплению диалога между цивилизациями и построению устойчивых мостов для культурной коммуникации между народами.",
+        vision_mission_title: "Миссия", vision_mission_text: "Поддержка глобального культурного диалога через распространение знаний и усиление интеллектуального обмена между исследователями и интеллектуалами, вклад в создание культурного пространства, основанного на уважении цивилизационного разнообразия и продвижении ценностей сотрудничества и взаимопонимания между народами.",
+        goals_title: "Стратегические Цели", goals_list: goalsDataRu,
+        fields_title: "Сферы деятельности",
+        f1: { title: "Диалог между цивилизациями и культурами", desc: "Укрепление взаимопонимания и поощрение конструктивных интеллектуальных дискуссий между различными культурами." },
+        f2: { title: "Культурные и интеллектуальные исследования", desc: "Создание и поддержка исследований и трудов, посвященных культурным и цивилизационным вопросам на нескольких языках." },
+        f3: { title: "Международный культурный обмен", desc: "Укрепление культурного взаимодействия между людьми и организациями через международные программы и инициативы." },
+        f4: { title: "Культурные и научные публикации", desc: "Публикация статей, исследований и интеллектуальных материалов на различных платформах." },
+        f5: { title: "Перевод и передача знаний", desc: "Поддержка перевода интеллектуальных и культурных произведений между языками для укрепления взаимопонимания." },
+        f6: { title: "Неформальное культурное образование", desc: "Организация образовательных программ и семинаров для повышения культурной осведомленности." },
+        f7: { title: "Организация культурных мероприятий", desc: "Проведение конференций, семинаров и интеллектуальных форумов на местном и международном уровнях." },
+        f8: { title: "Культурная дипломатия", desc: "Укрепление роли культуры как средства сближения народов и построения позитивных международных отношений." },
+        f9: { title: "Расширение прав и возможностей молодежи в культурной работе", desc: "Поддержка молодежных инициатив и развитие их навыков в области культуры и диалога." },
+        f10: { title: "Культурное разнообразие и защита идентичности", desc: "Содействие уважению культурного разнообразия и сохранению различных культурных идентичностей." },
+        f11: { title: "Цифровые культурные медиа", desc: "Использование цифровых медиа для распространения культуры и усиления глобального диалога." },
+        f12: { title: "Построение международных партнерств", desc: "Сотрудничество с университетами, исследовательскими центрами и культурными организациями по всему миру." },
+        f13: { title: "Мир и сосуществование", desc: "Продвижение культуры мира через культурную работу." },
+        f14: { title: "Культурные инновации", desc: "Поощрение использования технологий и творчества в развитии культурных проектов." },
+        target_title: "Целевые группы",
+        t1: { title: "Исследователи и академики", desc: "В области культурных и интеллектуальных исследований" }, t2: { title: "Интеллектуалы и мыслители", desc: "Различных интеллектуальных и цивилизационных направлений" },
+        t3: { title: "Писатели и литераторы", desc: "Интересующиеся вопросами культуры и культурного разнообразия" }, t4: { title: "Молодежь, интересующаяся культурой", desc: "Особенно имеющие культурные инициативы" },
+        t5: { title: "Студенты университетов", desc: "Различных специальностей" }, t6: { title: "Университеты и академические учреждения", desc: "Заинтересованные в культурном и научном сотрудничестве" },
+        t7: { title: "Исследовательские и интеллектуальные центры", desc: "Интересующиеся цивилизационным диалогом" }, t8: { title: "Культурные учреждения", desc: "Местные и международные" },
+        t9: { title: "Международные организации", desc: "Занимающиеся культурным диалогом и цивилизационным разнообразием" }, t10: { title: "Переводчики", desc: "Заинтересованные в передаче знаний между языками и культурами" },
+        t11: { title: "Медиа-специалисты и создатели контента", desc: "На цифровых платформах" }, t12: { title: "Разработчики культурной политики", desc: "Интересующиеся культурной дипломатией" },
+        values_title: "Наши Основные Ценности",
+        v1: { title: "Конструктивный культурный диалог", desc: "Как инструмент сближения взглядов между народами" }, v2: { title: "Уважение цивилизационного разнообразия", desc: "Недискриминация между культурами" },
+        v3: { title: "Сотрудничество и партнерство", desc: "Между народами и организациями для достижения общих целей" }, v4: { title: "Распространение знаний", desc: "Прозрачным и доступным для всех способом" },
+        v5: { title: "Укрепление человеческого взаимопонимания", desc: "Как основа мира и мирного сосуществования" }, v6: { title: "Культурная устойчивость", desc: "Сохранение наследия и культурной идентичности" },
+        v7: { title: "Инновации и творчество", desc: "В представлении культурных и интеллектуальных проектов" }, v8: { title: "Достоверность и прозрачность", desc: "В институциональной и административной работе" },
+        contact_title: "Свяжитесь с нами",
+        contact_message: "<p>Инициатива «Глобальный культурный мост» рада получать ваши запросы и предложения, и мы приветствуем все мнения и идеи, которые способствуют укреплению культурного и цивилизационного диалога.</p>",
+        contact_email_title: "Электронная почта", contact_website_title: "Наш сайт на Ahewar.org", contact_instagram_title: "Instagram",
+        contact_footer: "<p>Мы рады общению с вами и участию в построении мостов знаний и культуры между народами.</p>",
+        founder_title: "Основатель", founder_name: "Фуад Ахмед Айеш", founder_title_txt: "Писатель и исследователь в области культуры и международного права, из Иорданского Хашимитского Королевства",
+        founder_badges: founderBadgesRu,
+        founder_message: `<h4>📖 Заявление Основателя</h4><p>Мы верим, что культура - это не просто наследие, а живая сила, способная строить мосты между народами и укреплять человеческое взаимопонимание в меняющемся мире.</p><p>Исходя из этого, была запущена инициатива «Глобальный культурный мост», чтобы стать открытым пространством для интеллектуального диалога, платформой для обмена идеями и усиления коммуникации между различными культурами, основанной на твердом убеждении, что диалог - это путь к более кооперативному и стабильному будущему.</p><p>С помощью этой инициативы мы стремимся внести вклад в укрепление арабского культурного присутствия на международной арене и построение человеческих связей, основанных на взаимном уважении и культурном разнообразии.</p><p style="margin-top: 1rem; color: #d4af37;">Фуад Ахмед Айеш</p>`,
+        thanks_message: `<h4>🙏 Благодарности</h4><p>Мы выражаем искреннюю благодарность и признательность всем сторонам, учреждениям и лицам, которые внесли вклад в поддержку инициативы «Глобальный культурный мост» и способствовали успеху ее деятельности и усилению ее культурного послания.</p><p>Эта работа не могла бы быть выполнена без духа сотрудничества и общей веры в важность цивилизационного диалога и культурного обмена между народами.</p><p>Мы выражаем нашу гордость за партнерства и сотрудничество, которые способствовали созданию этой инициативы, и надеемся на дальнейшую совместную работу, которая укрепит ценности взаимопонимания и культурной открытости.</p><p>Мы также ценим поддержку всех участников и подписчиков, которые были частью этого культурного пути.</p><p style="margin-top: 1rem; color: #d4af37;">С искренней благодарностью.</p>`,
+        footer_copyright: "© 2025 Глобальный культурный мост (GCB)", footer_tagline: "Строим человеческие мосты на основе знаний, взаимопо understanding и взаимного уважения"
+      },
+      es: {
+        logo_sub: "Puente Cultural Global", logo_sub_mobile: "Puente Cultural Global",
+        nav_home: "Inicio", nav_about: "Quiénes Somos", nav_vision: "Visión", nav_goals: "Objetivos", nav_fields: "Áreas de Trabajo",
+        nav_target: "Grupos Objetivo", nav_values: "Valores", nav_contact: "Contáctenos", nav_founder: "Fundador",
+        nav_home_mobile: "Inicio", nav_about_mobile: "Quiénes Somos", nav_vision_mobile: "Visión", nav_goals_mobile: "Objetivos",
+        nav_fields_mobile: "Áreas de Trabajo", nav_target_mobile: "Grupos Objetivo", nav_values_mobile: "Valores", nav_contact_mobile: "Contáctenos", nav_founder_mobile: "Fundador",
+        hero_badge: "Iniciativa Cultural Internacional Independiente",
+        hero_title1: "Puente Cultural Global<br><span style='font-size: 2rem;'>GCB</span>",
+        hero_subtitle: "Una iniciativa cultural internacional independiente destinada a mejorar el diálogo entre civilizaciones y culturas, y fomentar el intercambio cultural e intelectual entre los pueblos.<br>Nos esforzamos por construir puentes humanos basados en el conocimiento, la comprensión y el respeto mutuo.",
+        about_title: "Quiénes Somos", about_charter: "Carta interna de GCB",
+        about_p1: "Puente Cultural Global (GCB) es una iniciativa cultural internacional independiente que tiene como objetivo mejorar el diálogo entre civilizaciones y culturas, y fomentar el intercambio cultural e intelectual entre los pueblos.",
+        about_p2: "La iniciativa busca construir puentes humanos basados en el conocimiento, la comprensión y el respeto mutuo, apoyando y produciendo proyectos culturales e intelectuales que contribuyan a fortalecer la comunicación entre diferentes sociedades.",
+        about_p3: "Trabajamos para publicar artículos culturales, estudios intelectuales y trabajos de traducción, alentando a investigadores e intelectuales de todo el mundo a participar en un diálogo civilizatorio constructivo e intercambiar experiencias culturales.",
+        vision_title: "Visión y Misión", vision_vision_title: "Visión", vision_vision_text: "Convertirse en una plataforma cultural internacional líder, que contribuya efectivamente a mejorar el diálogo entre civilizaciones y construir puentes sostenibles para la comunicación cultural entre los pueblos.",
+        vision_mission_title: "Misión", vision_mission_text: "Apoyar el diálogo cultural global a través de la difusión del conocimiento y el fortalecimiento del intercambio intelectual entre investigadores e intelectuales, contribuyendo a la construcción de un espacio cultural basado en el respeto a la diversidad civilizatoria y la promoción de valores de cooperación y entendimiento entre los pueblos.",
+        goals_title: "Objetivos Estratégicos", goals_list: goalsDataEs,
+        fields_title: "Áreas de Trabajo",
+        f1: { title: "Diálogo entre Civilizaciones y Culturas", desc: "Mejorar la comprensión mutua y fomentar discusiones intelectuales constructivas entre diferentes culturas." },
+        f2: { title: "Estudios Culturales e Intelectuales", desc: "Producir y apoyar investigaciones y estudios que aborden cuestiones culturales y civilizatorias en múltiples idiomas." },
+        f3: { title: "Intercambio Cultural Internacional", desc: "Fortalecer la interacción cultural entre individuos e instituciones a través de programas e iniciativas internacionales." },
+        f4: { title: "Publicación Cultural y de Conocimiento", desc: "Publicar artículos, investigaciones y materiales intelectuales en diversas plataformas." },
+        f5: { title: "Traducción y Transferencia de Conocimiento", desc: "Apoyar la traducción de obras intelectuales y culturales entre idiomas para mejorar la comprensión mutua." },
+        f6: { title: "Educación Cultural No Formal", desc: "Organizar programas educativos y talleres para mejorar la conciencia cultural." },
+        f7: { title: "Organización de Eventos Culturales", desc: "Realizar conferencias, seminarios y foros intelectuales a nivel local e internacional." },
+        f8: { title: "Diplomacia Cultural", desc: "Mejorar el papel de la cultura como medio de acercamiento entre los pueblos y construcción de relaciones internacionales positivas." },
+        f9: { title: "Empoderamiento Juvenil en el Trabajo Cultural", desc: "Apoyar iniciativas juveniles y desarrollar sus habilidades en los campos de la cultura y el diálogo." },
+        f10: { title: "Diversidad Cultural y Protección de la Identidad", desc: "Promover el respeto por la diversidad cultural y preservar las diferentes identidades culturales." },
+        f11: { title: "Medios Culturales Digitales", desc: "Utilizar los medios digitales para difundir la cultura y fortalecer el diálogo global." },
+        f12: { title: "Construcción de Alianzas Internacionales", desc: "Colaboración con universidades, centros de investigación y organizaciones culturales de todo el mundo." },
+        f13: { title: "Paz y Convivencia", desc: "Promover una cultura de paz a través del trabajo cultural." },
+        f14: { title: "Innovación Cultural", desc: "Fomentar el uso de la tecnología y la creatividad en el desarrollo de proyectos culturales." },
+        target_title: "Grupos Objetivo",
+        t1: { title: "Investigadores y Académicos", desc: "En los campos de estudios culturales e intelectuales" }, t2: { title: "Intelectuales y Pensadores", desc: "De diversas orientaciones intelectuales y civilizatorias" },
+        t3: { title: "Escritores y Figuras Literarias", desc: "Interesados en temas de cultura y diversidad cultural" }, t4: { title: "Jóvenes Interesados en la Cultura", desc: "Especialmente aquellos con iniciativas culturales" },
+        t5: { title: "Estudiantes Universitarios", desc: "En diversas disciplinas" }, t6: { title: "Universidades e Instituciones Académicas", desc: "Que buscan cooperación cultural y científica" },
+        t7: { title: "Centros de Investigación e Intelectuales", desc: "Interesados en el diálogo civilizatorio" }, t8: { title: "Instituciones Culturales", desc: "Locales e internacionales" },
+        t9: { title: "Organizaciones Internacionales", desc: "Preocupadas por el diálogo cultural y la diversidad civilizatoria" }, t10: { title: "Traductores", desc: "Interesados en transferir conocimiento entre idiomas y culturas" },
+        t11: { title: "Profesionales de Medios y Creadores de Contenido", desc: "En plataformas digitales" }, t12: { title: "Creadores de Políticas Culturales", desc: "Interesados en la diplomacia cultural" },
+        values_title: "Nuestros Valores Fundamentales",
+        v1: { title: "Diálogo Cultural Constructivo", desc: "Como herramienta para acercar perspectivas entre los pueblos" }, v2: { title: "Respeto por la Diversidad Civilizatoria", desc: "No discriminación entre culturas" },
+        v3: { title: "Cooperación y Asociación", desc: "Entre pueblos e instituciones para lograr objetivos comunes" }, v4: { title: "Difusión del Conocimiento", desc: "De manera transparente y accesible para todos" },
+        v5: { title: "Mejora del Entendimiento Humano", desc: "Como base para la paz y la convivencia pacífica" }, v6: { title: "Sostenibilidad Cultural", desc: "Preservar el patrimonio y la identidad cultural" },
+        v7: { title: "Innovación y Creatividad", desc: "En la presentación de proyectos culturales e intelectuales" }, v8: { title: "Credibilidad y Transparencia", desc: "En el trabajo institucional y administrativo" },
+        contact_title: "Contáctenos",
+        contact_message: "<p>La iniciativa Puente Cultural Global se complace en recibir sus consultas y sugerencias, y damos la bienvenida a todas las opiniones e ideas que contribuyan a mejorar el diálogo cultural y civilizatorio.</p>",
+        contact_email_title: "Correo electrónico", contact_website_title: "Nuestro sitio en Ahewar.org", contact_instagram_title: "Instagram",
+        contact_footer: "<p>Nos complace comunicarnos con usted y compartir la construcción de puentes de conocimiento y cultura entre los pueblos.</p>",
+        founder_title: "Fundador", founder_name: "Fouad Ahmed Ayesh", founder_title_txt: "Escritor e investigador en asuntos culturales y legales internacionales, del Reino Hachemita de Jordania",
+        founder_badges: founderBadgesEs,
+        founder_message: `<h4>📖 Declaración del Fundador</h4><p>Creemos que la cultura no es simplemente una herencia, sino una fuerza viva capaz de construir puentes entre los pueblos y mejorar el entendimiento humano en un mundo cambiante.</p><p>Desde este punto de vista, se lanzó la iniciativa «Puente Cultural Global» para ser un espacio abierto al diálogo intelectual, una plataforma para intercambiar ideas y mejorar la comunicación entre diferentes culturas, basada en la firme convicción de que el diálogo es el camino hacia un futuro más cooperativo y estable.</p><p>A través de esta iniciativa, buscamos contribuir a fortalecer la presencia cultural árabe en la escena internacional y construir lazos humanos basados en el respeto mutuo y la diversidad cultural.</p><p style="margin-top: 1rem; color: #d4af37;">Fouad Ahmed Ayesh</p>`,
+        thanks_message: `<h4>🙏 Agradecimientos</h4><p>Extendemos nuestro sincero agradecimiento y aprecio a todas las partes, instituciones e individuos que han contribuido a apoyar la iniciativa «Puente Cultural Global» y han contribuido al éxito de sus actividades y al fortalecimiento de su mensaje cultural.</p><p>Este trabajo no se habría logrado sin el espíritu de cooperación y la creencia compartida en la importancia del diálogo civilizatorio y el intercambio cultural entre los pueblos.</p><p>Expresamos nuestro orgullo por las alianzas y colaboraciones que han contribuido a construir esta iniciativa, y esperamos más trabajo conjunto que refuerce los valores de comprensión y apertura cultural.</p><p>También apreciamos el apoyo de todos los participantes y seguidores que han sido parte de este viaje cultural.</p><p style="margin-top: 1rem; color: #d4af37;">Con sincero agradecimiento y aprecio.</p>`,
+        footer_copyright: "© 2025 Puente Cultural Global (GCB)", footer_tagline: "Construyendo puentes humanos basados en el conocimiento, la comprensión y el respeto mutuo"
       }
     };
-    // إضافة الترجمات للغات الأخرى (فرنسي، روسي، إسباني) بنفس النمط - سيتم إضافتها كاملة في الملف النهائي
-    translations.fr = { ...translations.en, logo_sub: "Pont Culturel Mondial", hero_title1: "Pont Culturel Mondial<br><span style='font-size: 2rem;'>GCB</span>", about_charter: "Charte interne de GCB", contact_title: "Contactez-nous", contact_message: "<p>L'initiative Pont Culturel Mondial est heureuse de recevoir vos demandes et suggestions...</p>", contact_email_title: "E-mail", contact_website_title: "Notre site sur Ahewar.org", contact_instagram_title: "Instagram", contact_footer: "<p>Nous sommes heureux de communiquer avec vous...</p>", founder_title: "Fondateur", footer_copyright: "© 2025 Pont Culturel Mondial (GCB)" };
-    translations.ru = { ...translations.en, logo_sub: "Глобальный культурный мост", hero_title1: "Глобальный культурный мост<br><span style='font-size: 2rem;'>GCB</span>", about_charter: "Внутренняя хартия GCB", contact_title: "Свяжитесь с нами", contact_message: "<p>Инициатива «Глобальный культурный мост» рада получать ваши запросы...</p>", contact_email_title: "Электронная почта", contact_website_title: "Наш сайт на Ahewar.org", contact_instagram_title: "Instagram", contact_footer: "<p>Мы рады общению с вами...</p>", founder_title: "Основатель", footer_copyright: "© 2025 Глобальный культурный мост (GCB)" };
-    translations.es = { ...translations.en, logo_sub: "Puente Cultural Global", hero_title1: "Puente Cultural Global<br><span style='font-size: 2rem;'>GCB</span>", about_charter: "Carta interna de GCB", contact_title: "Contáctenos", contact_message: "<p>La iniciativa Puente Cultural Global se complace en recibir sus consultas...</p>", contact_email_title: "Correo electrónico", contact_website_title: "Nuestro sitio en Ahewar.org", contact_instagram_title: "Instagram", contact_footer: "<p>Nos complace comunicarnos con usted...</p>", founder_title: "Fundador", footer_copyright: "© 2025 Puente Cultural Global (GCB)" };
 
     let currentLang = "ar";
 
@@ -1102,13 +1332,19 @@
 
     function renderFounderBadges() {
       const container = document.getElementById("founderBadges");
-      if(container) container.innerHTML = translations[currentLang].founder_badges.map(b => `<span class="card" style="display: inline-block; padding: 0.4rem 1rem; font-size: 0.8rem;">${b}</span>`).join('');
+      if(container) container.innerHTML = translations[currentLang].founder_badges.map(b => b).join('');
     }
 
     function updateAllTexts() {
       document.querySelectorAll('[data-key]').forEach(el => {
         const key = el.getAttribute('data-key');
-        if(translations[currentLang][key] !== undefined) el.innerHTML = translations[currentLang][key];
+        if(translations[currentLang][key] !== undefined) {
+          if(key === 'hero_title1' || key === 'hero_title1' || key.includes('title')) {
+            el.innerHTML = translations[currentLang][key];
+          } else {
+            el.innerHTML = translations[currentLang][key];
+          }
+        }
       });
       const founderQuoteDiv = document.querySelector('.founder-quote');
       const thanksDiv = document.querySelector('.thanks-section');
@@ -1120,7 +1356,7 @@
       if(contactTitles.length >= 3) { contactTitles[0].innerHTML = translations[currentLang].contact_email_title; contactTitles[1].innerHTML = translations[currentLang].contact_website_title; contactTitles[2].innerHTML = translations[currentLang].contact_instagram_title; }
       renderGoals(); renderCardsGeneric("fieldsGrid", fieldsData); renderCardsGeneric("targetGrid", targetData); renderCardsGeneric("valuesGrid", valuesData); renderFounderBadges();
       document.documentElement.setAttribute("dir", currentLang === "ar" ? "rtl" : "ltr");
-      document.documentElement.setAttribute("lang", currentLang);
+      document.documentElement.setAttribute("lang", currentLang === "ar" ? "ar" : currentLang);
     }
 
     // دوال القائمة الجانبية
@@ -1146,6 +1382,8 @@
       lightbox.classList.add('active');
     }
     function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.getElementById('lightboxImg').src = ''; }
+    window.openLightbox = openLightbox;
+    window.closeLightbox = closeLightbox;
     document.addEventListener('keydown', e => { if(e.key === 'Escape') { closeLightbox(); closeMenu(); } });
 
     // تحميل الصور
@@ -1182,12 +1420,18 @@
         }
       });
     }
-    function scrollToSection(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); closeMenu(); }
+    function scrollToSection(id) { 
+      const element = document.getElementById(id);
+      if(element) element.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+      closeMenu();
+    }
     function scrollToNextSection() {
       let current = null;
       sections.forEach(section => { const rect = section.getBoundingClientRect(); if (rect.top < 150 && rect.top > -100) current = section; });
       if(current) { const next = current.nextElementSibling; if(next?.classList.contains('section')) next.scrollIntoView({ behavior: 'smooth' }); }
     }
+    window.scrollToSection = scrollToSection;
+    window.scrollToNextSection = scrollToNextSection;
     window.addEventListener('scroll', checkVisibility);
     window.addEventListener('load', checkVisibility);
     navItems.forEach(link => link.addEventListener('click', (e) => { e.preventDefault(); scrollToSection(link.getAttribute('data-section')); }));

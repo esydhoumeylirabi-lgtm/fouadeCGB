@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>GCB | الجسر الثقافي العالمي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #05070a;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    .cinematic-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(ellipse at 30% 40%, #0a0a1a, #020205);
+    }
+
+    .cinematic-bg::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1), transparent 60%);
+      animation: slowDrift 25s ease-in-out infinite;
+    }
+
+    @keyframes slowDrift {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-3%, -3%); }
+    }
+
+    .gold-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      background: radial-gradient(circle, #d4af37, transparent);
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatParticle 12s ease-in-out infinite;
+    }
+
+    @keyframes floatParticle {
+      0% { opacity: 0; transform: translateY(100vh) translateX(0) scale(0); }
+      15% { opacity: 0.7; }
+      85% { opacity: 0.5; }
+      100% { opacity: 0; transform: translateY(-20vh) translateX(80px) scale(1.2); }
+    }
+
+    /* ========== تصميم سطح المكتب (اللاب توب) ========== */
+    .desktop-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem 5%;
+      background: rgba(5, 7, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.4s;
+    }
+
+    .desktop-navbar.scrolled {
+      padding: 0.6rem 5%;
+      background: rgba(5, 7, 10, 0.98);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+    }
+
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+      background-color: #d4af37;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #05070a;
+    }
+
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    .logo-text small {
+      font-size: 0.65rem;
+      color: #d4af37;
+      display: block;
+    }
+
+    .desktop-nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .desktop-nav-links a {
+      color: #e8e9ed;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+      position: relative;
+      font-size: 0.9rem;
+    }
+
+    .desktop-nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background: #d4af37;
+      transition: width 0.3s;
+    }
+
+    .desktop-nav-links a:hover::after,
+    .desktop-nav-links a.active::after {
+      width: 100%;
+    }
+
+    .desktop-nav-links a.active {
+      color: #d4af37;
+    }
+
+    /* أعلام سطح المكتب */
+    .desktop-flags {
+      display: flex;
+      gap: 15px;
+    }
+
+    .desktop-flags span {
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+      opacity: 0.7;
+      font-size: 1.3rem;
+    }
+
+    .desktop-flags span:hover {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+
+    /* ========== تصميم الهاتف (القائمة الجانبية) ========== */
+    .mobile-only {
+      display: none;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      top: 15px;
+      left: 5%;
+      width: 45px;
+      height: 45px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 12px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1002;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .menu-toggle i {
+      font-size: 1.6rem;
+      color: #d4af37;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100vh;
+      background: rgba(5, 7, 10, 0.98);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(212, 175, 55, 0.2);
+      z-index: 1003;
+      transition: left 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      padding: 80px 20px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .side-menu.open {
+      left: 0;
+    }
+
+    .side-flags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .side-flags span {
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+      opacity: 0.7;
+      font-size: 1.8rem;
+    }
+
+    .side-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .side-nav-links li a {
+      color: #e8e9ed;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+      font-size: 1.1rem;
+      display: block;
+      padding: 8px 15px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      text-align: center;
+    }
+
+    .side-nav-links li a:hover,
+    .side-nav-links li a.active {
+      background: rgba(212, 175, 55, 0.15);
+      color: #d4af37;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1002;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .close-menu-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(212, 175, 55, 0.15);
+      border: none;
+      color: #d4af37;
+      font-size: 1.3rem;
+      cursor: pointer;
+      width: 35px;
+      height: 35px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .mobile-logo {
+      position: fixed;
+      top: 12px;
+      right: 50%;
+      transform: translateX(50%);
+      z-index: 1001;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(5, 7, 10, 0.9);
+      padding: 6px 15px;
+      border-radius: 40px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      cursor: pointer;
+    }
+
+    .mobile-logo .logo-img-mobile {
+      width: 35px;
+      height: 35px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      background-color: #d4af37;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #05070a;
+    }
+
+    .mobile-logo .logo-text-mobile {
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .mobile-logo .logo-text-mobile small {
+      font-size: 0.55rem;
+      color: #d4af37;
+      display: block;
+    }
+
+    /* ========== الأقسام العامة ========== */
+    .section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 5%;
+      position: relative;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.05);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+      animation: glowPulse 3s infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.2); }
+      50% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+    }
+
+    .hero-content h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #ffffff, #d4af37, #f5e6a3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    .scroll-down {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 2.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      right: 0;
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, #d4af37, transparent);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      background: rgba(20, 22, 32, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 28px;
+      padding: 1.8rem;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: rgba(212, 175, 55, 0.5);
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-icon {
+      font-size: 2.2rem;
+      color: #d4af37;
+      margin-bottom: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .card p {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+      font-size: 0.9rem;
+    }
+
+    .numbered-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .numbered-list li {
+      background: rgba(255, 255, 255, 0.03);
+      margin: 0.8rem 0;
+      padding: 1rem 1.5rem;
+      border-radius: 16px;
+      border-right: 4px solid #d4af37;
+      transition: all 0.3s;
+    }
+
+    .numbered-list li:hover {
+      background: rgba(212, 175, 55, 0.08);
+      transform: translateX(-5px);
+    }
+
+    .founder-card {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(0, 0, 0, 0.4));
+      border-radius: 40px;
+      padding: 2.5rem;
+      text-align: center;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .founder-img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      margin: 0 auto 1.5rem;
+      border: 3px solid #d4af37;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #2a2a3a;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .founder-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+    
+    .lightbox.active {
+      display: flex;
+    }
+    
+    .lightbox-img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 20px;
+      border: 3px solid #d4af37;
+      box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+      object-fit: contain;
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      font-size: 2.5rem;
+      color: #d4af37;
+      cursor: pointer;
+      background: rgba(0,0,0,0.5);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      z-index: 2001;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .contact-card {
+      background: rgba(20, 22, 32, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 28px;
+      padding: 2rem;
+      width: 280px;
+      text-align: center;
+      transition: all 0.4s;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(212, 175, 55, 0.6);
+    }
+
+    .contact-icon {
+      font-size: 2.5rem;
+      color: #d4af37;
+      margin-bottom: 1rem;
+    }
+
+    .contact-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #d4af37;
+    }
+
+    .contact-card a {
+      color: #ffffff;
+      text-decoration: none;
+      word-break: break-all;
+      transition: color 0.3s;
+    }
+
+    .contact-card a:hover {
+      color: #d4af37;
+    }
+
+    .contact-message {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(212, 175, 55, 0.08);
+      border-radius: 28px;
+      text-align: center;
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #d4af37, #f5e6a3);
+      z-index: 1001;
+      transition: width 0.1s;
+    }
+
+    footer {
+      background: #020205;
+      padding: 2.5rem 5%;
+      text-align: center;
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .founder-quote, .thanks-section {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(212, 175, 55, 0.05);
+      border-radius: 28px;
+      border-right: 4px solid #d4af37;
+      text-align: right;
+    }
+
+    .founder-quote p, .thanks-section p {
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .founder-quote h4, .thanks-section h4 {
+      color: #d4af37;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    /* ========== استجابة للشاشات المختلفة ========== */
+    @media (max-width: 768px) {
+      .desktop-navbar, .desktop-flags {
+        display: none;
+      }
+      
+      .mobile-only {
+        display: block;
+      }
+      
+      .menu-toggle {
+        display: flex;
+      }
+      
+      .mobile-logo {
+        display: flex;
+      }
+      
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-content h1 span {
+        font-size: 1.2rem !important;
+      }
+      
+      .hero-subtitle {
+        font-size: 0.9rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .section {
+        padding: 5rem 5%;
+      }
+      
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .contact-card {
+        width: 100%;
+        max-width: 320px;
+      }
+      
+      .founder-card {
+        padding: 1.5rem;
+      }
+      
+      .founder-img {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .lightbox-close {
+        top: 15px;
+        left: 15px;
+        font-size: 1.8rem;
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cinematic-bg"></div>
+  <div class="gold-particles" id="particles"></div>
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+    <img class="lightbox-img" id="lightboxImg" alt="المؤسس فؤاد أحمد عايش">
+  </div>
+
+  <!-- ========== سطح المكتب (لاب توب) ========== -->
+  <nav class="desktop-navbar" id="navbar">
+    <div class="logo-area" onclick="scrollToSection('home')">
+      <div class="logo-img" id="logoImg"><i class="fas fa-bridge"></i></div>
+      <div class="logo-text">GCB<small data-key="logo_sub">الجسر الثقافي العالمي</small></div>
+    </div>
+    <ul class="desktop-nav-links">
+      <li><a href="#" data-section="home" class="active" data-key="nav_home">الرئيسية</a></li>
+      <li><a href="#" data-section="about" data-key="nav_about">من نحن</a></li>
+      <li><a href="#" data-section="vision" data-key="nav_vision">الرؤية</a></li>
+      <li><a href="#" data-section="goals" data-key="nav_goals">الأهداف</a></li>
+      <li><a href="#" data-section="fields" data-key="nav_fields">مجالات العمل</a></li>
+      <li><a href="#" data-section="target" data-key="nav_target">الفئات</a></li>
+      <li><a href="#" data-section="values" data-key="nav_values">القيم</a></li>
+      <li><a href="#" data-section="contact" data-key="nav_contact">تواصل معنا</a></li>
+      <li><a href="#" data-section="founder" data-key="nav_founder">المؤسس</a></li>
+    </ul>
+    <div class="desktop-flags">
+      <span data-lang="ar" title="العربية">🇸🇦</span>
+      <span data-lang="en" title="English">🇬🇧</span>
+      <span data-lang="fr" title="Français">🇫🇷</span>
+      <span data-lang="ru" title="Русский">🇷🇺</span>
+      <span data-lang="es" title="Español">🇪🇸</span>
+    </div>
+  </nav>
+
+  <!-- ========== الهاتف (القائمة الجانبية) ========== -->
+  <div class="menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <div class="mobile-logo" onclick="scrollToSection('home')">
+    <div class="logo-img-mobile" id="mobileLogoImg"><i class="fas fa-bridge"></i></div>
+    <div class="logo-text-mobile">GCB<small data-key="logo_sub_mobile">الجسر الثقافي العالمي</small></div>
+  </div>
+
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <div class="side-menu" id="sideMenu">
+    <button class="close-menu-btn" id="closeMenuBtn">✕</button>
+    
+    <div class="side-flags">
+      <span data-lang="ar" title="العربية">🇸🇦</span>
+      <span data-lang="en" title="English">🇬🇧</span>
+      <span data-lang="fr" title="Français">🇫🇷</span>
+      <span data-lang="ru" title="Русский">🇷🇺</span>
+      <span data-lang="es" title="Español">🇪🇸</span>
+    </div>
+    
+    <ul class="side-nav-links">
+      <li><a href="#" data-section="home" class="active" data-key="nav_home_mobile">الرئيسية</a></li>
+      <li><a href="#" data-section="about" data-key="nav_about_mobile">من نحن</a></li>
+      <li><a href="#" data-section="vision" data-key="nav_vision_mobile">الرؤية</a></li>
+      <li><a href="#" data-section="goals" data-key="nav_goals_mobile">الأهداف</a></li>
+      <li><a href="#" data-section="fields" data-key="nav_fields_mobile">مجالات العمل</a></li>
+      <li><a href="#" data-section="target" data-key="nav_target_mobile">الفئات</a></li>
+      <li><a href="#" data-section="values" data-key="nav_values_mobile">القيم</a></li>
+      <li><a href="#" data-section="contact" data-key="nav_contact_mobile">تواصل معنا</a></li>
+      <li><a href="#" data-section="founder" data-key="nav_founder_mobile">المؤسس</a></li>
+    </ul>
+  </div>
+
+  <!-- ========== المحتوى الرئيسي ========== -->
+  <section id="home" class="section hero-section">
+    <div class="hero-content">
+      <div class="hero-badge" data-key="hero_badge"><i class="fas fa-globe-asia"></i> مبادرة ثقافية دولية مستقلة</div>
+      <h1 data-key="hero_title1">الجسر الثقافي العالمي<br><span style="font-size: 2rem;">Global Cultural Bridge</span></h1>
+      <p class="hero-subtitle" data-key="hero_subtitle">مبادرة ثقافية دولية مستقلة، تهدف إلى تعزيز الحوار بين الحضارات والثقافات، وتشجيع التبادل الثقافي والفكري بين الشعوب.<br>نسعى إلى بناء جسور إنسانية قائمة على المعرفة، والتفاهم، والاحترام المتبادل.</p>
+    </div>
+    <div class="scroll-down" onclick="scrollToNextSection()">
+      <div style="width: 28px; height: 45px; border: 2px solid #d4af37; border-radius: 20px; position: relative; margin: 0 auto;">
+        <div style="width: 4px; height: 10px; background: #d4af37; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); border-radius: 2px; animation: wheelMove 1.5s infinite;"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div style="width: 100%;">
+      <h2 class="section-title" data-key="about_title">من نحن</h2>
+      <div class="card" style="max-width: 1100px; margin: 0 auto; padding: 2.5rem;">
+        <h3 style="color: #d4af37; margin-bottom: 1.5rem;" data-key="about_charter"></h3>
+        <p style="line-height: 1.9; margin-bottom: 1rem;" data-key="about_p1">الجسر الثقافي العالمي هي مبادرة ثقافية دولية مستقلة، تهدف إلى تعزيز الحوار بين الحضارات والثقافات، وتشجيع التبادل الثقافي والفكري بين الشعوب.</p>
+        <p style="line-height: 1.9; margin-bottom: 1rem;" data-key="about_p2">تسعى المبادرة إلى بناء جسور إنسانية قائمة على المعرفة، والتفاهم، والاحترام المتبادل، من خلال دعم وإنتاج مشاريع ثقافية وفكرية تسهم في تعزيز التواصل بين المجتمعات المختلفة.</p>
+        <p style="line-height: 1.9;" data-key="about_p3">كما تعمل المبادرة على نشر المقالات الثقافية والدراسات الفكرية وأعمال الترجمة، وتشجيع الباحثين والمثقفين من مختلف أنحاء العالم على الانخراط في حوار حضاري بنّاء وتبادل الخبرات الثقافية.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="vision" class="section">
+    <div style="width: 100%;">
+      <h2 class="section-title" data-key="vision_title">الرؤية والرسالة</h2>
+      <div class="cards-grid">
+        <div class="card"><div class="card-icon"><i class="fas fa-eye"></i></div><h3 data-key="vision_vision_title">الرؤية</h3><p data-key="vision_vision_text">أن تصبح مبادرة الجسر الثقافي العالمي منصة ثقافية دولية رائدة، تسهم بفعالية في تعزيز الحوار بين الحضارات وبناء جسور مستدامة للتواصل الثقافي بين الشعوب.</p></div>
+        <div class="card"><div class="card-icon"><i class="fas fa-bullhorn"></i></div><h3 data-key="vision_mission_title">الرسالة</h3><p data-key="vision_mission_text">دعم الحوار الثقافي العالمي من خلال نشر المعرفة وتعزيز التبادل الفكري بين الباحثين والمثقفين، والمساهمة في بناء فضاء ثقافي يقوم على احترام التنوع الحضاري ويعزز قيم التعاون والتفاهم بين الشعوب.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="goals" class="section">
+    <div style="width: 100%;">
+      <h2 class="section-title" data-key="goals_title">الأهداف الاستراتيجية</h2>
+      <ul class="numbered-list" id="goalsList"></ul>
+    </div>
+  </section>
+
+  <section id="fields" class="section">
+    <div style="width: 100%;">
+      <h2 class="section-title" data-key="fields_title">مجالات العمل</h2>
+      <div class="cards-grid" id="fieldsGrid"></div>
+    </div>
+  </section>
+
+  <section id="target" class="section">
+    <div style="width: 100%;">
+      <h2 class="section-title" data-key="target_title">الفئات المستهدفة</h2>
+      <div class="cards-grid" id="targetGrid"></div>
+    </div>
+  </section>
+
+  <section id="values" class="section">
+    <div style="width: 100%;">
+      <h2 class="section-title" data-key="values_title">قيمنا الأساسية</h2>
+      <div class="cards-grid" id="valuesGrid"></div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div style="width: 100%;">
+      <h2 class="section-title" data-key="contact_title">تواصل معنا</h2>
+      <div class="contact-message" data-key="contact_message">
+        <p>يسرّ مبادرة الجسر الثقافي العالمي أن تستقبل استفساراتكم ومقترحاتكم، ونرحب بجميع الآراء والأفكار التي تسهم في تعزيز الحوار الثقافي والحضاري.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <h3 data-key="contact_email_title">البريد الإلكتروني</h3>
+          <a href="mailto:info.globalculturalbridge@gmail.com">info.globalculturalbridge@gmail.com</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fas fa-globe"></i></div>
+          <h3 data-key="contact_website_title">موقعنا في وكالة الحوار المتمدن</h3>
+          <a href="https://www.ahewar.org/m.asp?i=15173" target="_blank">www.ahewar.org/m.asp?i=15173</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+          <h3 data-key="contact_instagram_title">الإنستغرام</h3>
+          <a href="https://www.instagram.com/global_cultural_bridge?igsh=MTMwamsybG5taWNmNw==" target="_blank">@global_cultural_bridge</a>
+        </div>
+      </div>
+      <div class="contact-message" data-key="contact_footer">
+        <p>نسعد بتواصلكم ومشاركتكم في بناء جسور المعرفة والثقافة بين الشعوب.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="founder" class="section">
+    <div style="width: 100%;">
+      <h2 class="section-title" data-key="founder_title">المؤسس</h2>
+      <div class="founder-card">
+        <div class="founder-img" id="founderImg" onclick="openLightbox()"><i class="fas fa-user-tie" style="font-size: 3rem; color: #d4af37;"></i></div>
+        <h2 style="color: #d4af37; font-size: 1.8rem;" data-key="founder_name">فؤاد أحمد عايش</h2>
+        <p style="margin: 0.5rem 0 1rem;" data-key="founder_title_txt">كاتب وباحث في الشؤون الثقافية والقانونية الدولية، من المملكة الأردنية الهاشمية</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center;" id="founderBadges"></div>
+        
+        <div class="founder-quote" data-key="founder_message"></div>
+        <div class="thanks-section" data-key="thanks_message"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p data-key="footer_copyright">© 2025 الجسر الثقافي العالمي - Global Cultural Bridge (GCB)</p>
+    <p style="font-size: 0.8rem; margin-top: 0.5rem;" data-key="footer_tagline">بناء جسور إنسانية قائمة على المعرفة والتفاهم والاحترام المتبادل</p>
+  </footer>
+
+  <script>
+    // بيانات المحتوى (مختصرة للتوفير - نفس البيانات السابقة)
+    const goalsDataAr = [
+      "تعزيز الحوار الثقافي البنّاء بين الحضارات والثقافات المختلفة",
+      "نشر الثقافة والمعرفة الفكرية، وإتاحة المحتوى الثقافي لمختلف المجتمعات",
+      "تشجيع التبادل الثقافي والفكري بين الباحثين والمثقفين من مختلف دول العالم",
+      "دعم الدراسات والبحوث والمقالات التي تسهم في ترسيخ الحوار الحضاري",
+      "بناء شبكة دولية من الباحثين والمثقفين والمهتمين بالحوار الثقافي",
+      "إقامة شراكات مع المؤسسات الثقافية والجامعات والمنظمات الدولية",
+      "المساهمة في نشر قيم السلام والتفاهم والتعايش المشترك بين الشعوب",
+      "دعم حركة الترجمة ونقل المعرفة بين اللغات والثقافات المختلفة",
+      "تنظيم فعاليات ثقافية وعلمية لتعزيز التواصل الفكري",
+      "تمكين الشباب والمبادرات الناشئة في العمل الثقافي والحوار الحضاري"
+    ];
+
+    const fieldsData = [
+      { icon: "fas fa-handshake", key: "f1" },{ icon: "fas fa-book", key: "f2" },{ icon: "fas fa-exchange-alt", key: "f3" },
+      { icon: "fas fa-newspaper", key: "f4" },{ icon: "fas fa-language", key: "f5" },{ icon: "fas fa-graduation-cap", key: "f6" },
+      { icon: "fas fa-calendar-alt", key: "f7" },{ icon: "fas fa-globe", key: "f8" },{ icon: "fas fa-users", key: "f9" },
+      { icon: "fas fa-palette", key: "f10" },{ icon: "fas fa-laptop-code", key: "f11" },{ icon: "fas fa-handshake", key: "f12" },
+      { icon: "fas fa-dove", key: "f13" },{ icon: "fas fa-lightbulb", key: "f14" }
+    ];
+
+    const targetData = [
+      { icon: "fas fa-user-graduate", key: "t1" },{ icon: "fas fa-lightbulb", key: "t2" },{ icon: "fas fa-feather-alt", key: "t3" },
+      { icon: "fas fa-users", key: "t4" },{ icon: "fas fa-user-graduate", key: "t5" },{ icon: "fas fa-university", key: "t6" },
+      { icon: "fas fa-flask", key: "t7" },{ icon: "fas fa-building", key: "t8" },{ icon: "fas fa-globe", key: "t9" },
+      { icon: "fas fa-language", key: "t10" },{ icon: "fas fa-video", key: "t11" },{ icon: "fas fa-chart-line", key: "t12" }
+    ];
+
+    const valuesData = [
+      { icon: "fas fa-comments", key: "v1" },{ icon: "fas fa-globe-asia", key: "v2" },{ icon: "fas fa-handshake", key: "v3" },
+      { icon: "fas fa-book-open", key: "v4" },{ icon: "fas fa-heart", key: "v5" },{ icon: "fas fa-seedling", key: "v6" },
+      { icon: "fas fa-rocket", key: "v7" },{ icon: "fas fa-shield-alt", key: "v8" }
+    ];
+
+    const founderBadgesAr = [
+      '<i class="fas fa-globe"></i> الحوار الحضاري','<i class="fas fa-landmark"></i> الدبلوماسية الثقافية',
+      '<i class="fas fa-tv"></i> الإعلام','<i class="fas fa-gavel"></i> الفكر القانوني',
+      '<i class="fas fa-language"></i> اللغة','<i class="fas fa-handshake"></i> التعاون الإنساني'
+    ];
+
+    // الترجمات (مختصرة ولكن كاملة في الملف النهائي)
+    const translations = {
+      ar: {
+        logo_sub: "الجسر الثقافي العالمي", logo_sub_mobile: "الجسر الثقافي العالمي",
+        nav_home: "الرئيسية", nav_about: "من نحن", nav_vision: "الرؤية", nav_goals: "الأهداف", nav_fields: "مجالات العمل",
+        nav_target: "الفئات", nav_values: "القيم", nav_contact: "تواصل معنا", nav_founder: "المؤسس",
+        nav_home_mobile: "الرئيسية", nav_about_mobile: "من نحن", nav_vision_mobile: "الرؤية", nav_goals_mobile: "الأهداف",
+        nav_fields_mobile: "مجالات العمل", nav_target_mobile: "الفئات", nav_values_mobile: "القيم", nav_contact_mobile: "تواصل معنا", nav_founder_mobile: "المؤسس",
+        hero_badge: "مبادرة ثقافية دولية مستقلة",
+        hero_title1: "الجسر الثقافي العالمي<br><span style='font-size: 2rem;'>GCB</span>",
+        hero_subtitle: "مبادرة ثقافية دولية مستقلة، تهدف إلى تعزيز الحوار بين الحضارات والثقافات، وتشجيع التبادل الثقافي والفكري بين الشعوب.<br>نسعى إلى بناء جسور إنسانية قائمة على المعرفة، والتفاهم، والاحترام المتبادل.",
+        about_title: "من نحن", about_charter: "",
+        about_p1: "الجسر الثقافي العالمي هي مبادرة ثقافية دولية مستقلة، تهدف إلى تعزيز الحوار بين الحضارات والثقافات، وتشجيع التبادل الثقافي والفكري بين الشعوب.",
+        about_p2: "تسعى المبادرة إلى بناء جسور إنسانية قائمة على المعرفة، والتفاهم، والاحترام المتبادل، من خلال دعم وإنتاج مشاريع ثقافية وفكرية تسهم في تعزيز التواصل بين المجتمعات المختلفة.",
+        about_p3: "كما تعمل المبادرة على نشر المقالات الثقافية والدراسات الفكرية وأعمال الترجمة، وتشجيع الباحثين والمثقفين من مختلف أنحاء العالم على الانخراط في حوار حضاري بنّاء وتبادل الخبرات الثقافية.",
+        vision_title: "الرؤية والرسالة", vision_vision_title: "الرؤية", vision_vision_text: "أن تصبح مبادرة الجسر الثقافي العالمي منصة ثقافية دولية رائدة، تسهم بفعالية في تعزيز الحوار بين الحضارات وبناء جسور مستدامة للتواصل الثقافي بين الشعوب.",
+        vision_mission_title: "الرسالة", vision_mission_text: "دعم الحوار الثقافي العالمي من خلال نشر المعرفة وتعزيز التبادل الفكري بين الباحثين والمثقفين، والمساهمة في بناء فضاء ثقافي يقوم على احترام التنوع الحضاري ويعزز قيم التعاون والتفاهم بين الشعوب",
+        goals_title: "الأهداف الاستراتيجية", goals_list: goalsDataAr,
+        fields_title: "مجالات العمل",
+        f1: { title: "الحوار بين الحضارات والثقافات", desc: "تعزيز التفاهم المتبادل وتشجيع النقاشات الفكرية البناءة بين مختلف الثقافات." },
+        f2: { title: "الدراسات الثقافية والفكرية", desc: "إنتاج ودعم البحوث والدراسات التي تتناول القضايا الثقافية والحضارية بلغات متعددة." },
+        f3: { title: "التبادل الثقافي الدولي", desc: "تعزيز التفاعل الثقافي بين الأفراد والمؤسسات عبر برامج ومبادرات دولية." },
+        f4: { title: "النشر الثقافي والمعرفي", desc: "نشر المقالات والأبحاث والمواد الفكرية عبر المنصات المختلفة." },
+        f5: { title: "الترجمة ونقل المعرفة", desc: "دعم ترجمة الأعمال الفكرية والثقافية بين اللغات لتعزيز الفهم المتبادل." },
+        f6: { title: "التعليم الثقافي غير الرسمي", desc: "تنظيم برامج تعليمية وورش عمل لتعزيز الوعي الثقافي." },
+        f7: { title: "تنظيم الفعاليات الثقافية", desc: "إقامة مؤتمرات وندوات وملتقيات فكرية على المستوى المحلي والدولي." },
+        f8: { title: "الدبلوماسية الثقافية", desc: "تعزيز دور الثقافة كوسيلة للتقارب بين الشعوب وبناء علاقات دولية إيجابية." },
+        f9: { title: "تمكين الشباب في العمل الثقافي", desc: "دعم المبادرات الشبابية وتطوير مهاراتهم في مجالات الثقافة والحوار." },
+        f10: { title: "التنوع الثقافي وحماية الهوية", desc: "تعزيز احترام التنوع الثقافي والحفاظ على الهويات الثقافية المختلفة." },
+        f11: { title: "الإعلام الثقافي الرقمي", desc: "استخدام الوسائط الرقمية لنشر الثقافة وتعزيز الحوار العالمي." },
+        f12: { title: "بناء الشراكات الدولية", desc: "التعاون مع الجامعات والمراكز البحثية والمنظمات الثقافية حول العالم." },
+        f13: { title: "السلام والتعايش المشترك", desc: "تعزيز ثقافة السلام من خلال العمل الثقافي." },
+        f14: { title: "الابتكار الثقافي", desc: "تشجيع استخدام التكنولوجيا والإبداع في تطوير المشاريع الثقافية." },
+        target_title: "الفئات المستهدفة",
+        t1: { title: "الباحثين والأكاديميين", desc: "في مجالات الدراسات الثقافية والفكرية" }, t2: { title: "المثقفين والمفكرين", desc: "من مختلف التوجهات الفكرية والحضارية" },
+        t3: { title: "الكتّاب والأدباء", desc: "المهتمين بقضايا الثقافة والتنوع الحضاري" }, t4: { title: "الشباب المهتمين بالثقافة", desc: "خاصة أصحاب المبادرات الثقافية" },
+        t5: { title: "الطلاب في الجامعات", desc: "في مختلف التخصصات" }, t6: { title: "الجامعات والمؤسسات الأكاديمية", desc: "الراغبة في التعاون الثقافي والعلمي" },
+        t7: { title: "المراكز البحثية والفكرية", desc: "المهتمة بالحوار الحضاري" }, t8: { title: "المؤسسات الثقافية", desc: "المحلية والدولية" },
+        t9: { title: "المنظمات الدولية", desc: "المعنية بالحوار الثقافي والتنوع الحضاري" }, t10: { title: "المترجمين", desc: "المهتمين بنقل المعرفة بين اللغات والثقافات" },
+        t11: { title: "الإعلاميين وصناع المحتوى", desc: "في المنصات الرقمية" }, t12: { title: "صناع السياسات الثقافية", desc: "المهتمين بالدبلوماسية الثقافية" },
+        values_title: "قيمنا الأساسية",
+        v1: { title: "الحوار الثقافي البناء", desc: "كأداة لتقريب وجهات النظر بين الشعوب" }, v2: { title: "احترام التنوع الحضاري", desc: "عدم التمييز بين الثقافات" },
+        v3: { title: "التعاون والشراكة", desc: "بين الشعوب والمؤسسات لتحقيق أهداف مشتركة" }, v4: { title: "نشر المعرفة", desc: "بطريقة شفافة ومتاحة للجميع" },
+        v5: { title: "تعزيز التفاهم الإنساني", desc: "كأساس للسلام والتعايش المشترك" }, v6: { title: "الاستدامة الثقافية", desc: "الحفاظ على التراث والهوية الثقافية" },
+        v7: { title: "الابتكار والإبداع", desc: "في تقديم المشاريع الثقافية والفكرية" }, v8: { title: "المصداقية والشفافية", desc: "في العمل المؤسسي والإداري" },
+        contact_title: "تواصل معنا",
+        contact_message: "<p>يسرّ مبادرة الجسر الثقافي العالمي أن تستقبل استفساراتكم ومقترحاتكم، ونرحب بجميع الآراء والأفكار التي تسهم في تعزيز الحوار الثقافي والحضاري.</p>",
+        contact_email_title: "البريد الإلكتروني", contact_website_title: "موقعنا في وكالة الحوار المتمدن", contact_instagram_title: "الإنستغرام",
+        contact_footer: "<p>نسعد بتواصلكم ومشاركتكم في بناء جسور المعرفة والثقافة بين الشعوب.</p>",
+        founder_title: "المؤسس", founder_name: "فؤاد أحمد عايش", founder_title_txt: "كاتب وباحث في الشؤون الثقافية والقانونية الدولية، من المملكة الأردنية الهاشمية",
+        founder_badges: founderBadgesAr,
+        founder_message: `<h4>📖 كلمة المؤسس</h4><p>نؤمن بأن الثقافة ليست مجرد موروث، بل هي قوة حية قادرة على بناء الجسور بين الشعوب وتعزيز التفاهم الإنساني في عالم متغير.</p><p>ومن هذا المنطلق، جاءت مبادرة «الجسر الثقافي العالمي» لتكون مساحة مفتوحة للحوار المعرفي، ومنصة لتبادل الأفكار وتعزيز التواصل بين مختلف الثقافات، انطلاقًا من قناعة راسخة بأن الحوار هو الطريق نحو مستقبل أكثر تعاونًا واستقرارًا.</p><p>نسعى من خلال هذه المبادرة إلى الإسهام في تعزيز الحضور الثقافي العربي على الساحة الدولية، وبناء روابط إنسانية قائمة على الاحترام المتبادل والتنوع الثقافي.</p><p style="margin-top: 1rem; color: #d4af37;">فؤاد أحمد عايش</p>`,
+        thanks_message: `<h4>🙏 شكر وتقدير</h4><p>نتقدم بجزيل الشكر والتقدير لكل الجهات والمؤسسات والأفراد الذين ساهموا في دعم مبادرة «الجسر الثقافي العالمي»، وأسهموا في إنجاح أنشطتها وتعزيز رسالتها الثقافية.</p><p>إن هذا العمل ما كان ليتحقق لولا روح التعاون والإيمان المشترك بأهمية الحوار الحضاري والتبادل الثقافي بين الشعوب.</p><p>ونعبّر عن اعتزازنا بالشراكات والتعاونات التي ساهمت في بناء هذه المبادرة، ونتطلع إلى مزيد من العمل المشترك الذي يعزز قيم التفاهم والانفتاح الثقافي.</p><p>كما نثمن دعم جميع المشاركين والمتابعين الذين كانوا جزءًا من هذا المسار الثقافي.</p><p style="margin-top: 1rem; color: #d4af37;">مع خالص الشكر والتقدير.</p>`,
+        footer_copyright: "© 2025 الجسر الثقافي العالمي - Global Cultural Bridge (GCB)", footer_tagline: "بناء جسور إنسانية قائمة على المعرفة والتفاهم والاحترام المتبادل"
+      },
+      en: {
+        logo_sub: "Global Cultural Bridge", logo_sub_mobile: "Global Cultural Bridge",
+        nav_home: "Home", nav_about: "About", nav_vision: "Vision", nav_goals: "Goals", nav_fields: "Fields",
+        nav_target: "Target", nav_values: "Values", nav_contact: "Contact Us", nav_founder: "Founder",
+        nav_home_mobile: "Home", nav_about_mobile: "About", nav_vision_mobile: "Vision", nav_goals_mobile: "Goals",
+        nav_fields_mobile: "Fields", nav_target_mobile: "Target", nav_values_mobile: "Values", nav_contact_mobile: "Contact Us", nav_founder_mobile: "Founder",
+        hero_badge: "Independent International Cultural Initiative",
+        hero_title1: "Global Cultural Bridge<br><span style='font-size: 2rem;'>GCB</span>",
+        hero_subtitle: "An independent international cultural initiative aimed at enhancing dialogue between civilizations and cultures, and encouraging cultural and intellectual exchange among peoples.<br>We strive to build human bridges based on knowledge, understanding, and mutual respect.",
+        about_title: "About Us", about_charter: "",
+        about_p1: "Global Cultural Bridge (GCB) is an independent international cultural initiative that aims to enhance dialogue between civilizations and cultures, and encourage cultural and intellectual exchange among peoples.",
+        about_p2: "The initiative seeks to build human bridges based on knowledge, understanding, and mutual respect, by supporting and producing cultural and intellectual projects that contribute to strengthening communication between different societies.",
+        about_p3: "We work to publish cultural articles, intellectual studies, and translation works, encouraging researchers and intellectuals from around the world to engage in constructive civilizational dialogue and exchange cultural experiences.",
+        vision_title: "Vision & Mission", vision_vision_title: "Vision", vision_vision_text: "To become a leading international cultural platform, effectively contributing to enhancing dialogue between civilizations and building sustainable bridges for cultural communication among peoples.",
+        vision_mission_title: "Mission", vision_mission_text: "Supporting global cultural dialogue through knowledge dissemination and enhancing intellectual exchange between researchers and intellectuals, contributing to building a cultural space based on respect for civilizational diversity.",
+        goals_title: "Strategic Goals",
+        goals_list: ["Enhance constructive cultural dialogue between different civilizations and cultures","Disseminate culture and intellectual knowledge, making cultural content accessible to various societies","Encourage cultural and intellectual exchange between researchers and intellectuals worldwide","Support studies, research, and articles that contribute to consolidating civilizational dialogue","Build an international network of researchers, intellectuals, and those interested in cultural dialogue","Establish partnerships with cultural institutions, universities, and international organizations","Contribute to spreading values of peace, understanding, and coexistence among peoples","Support the translation movement and knowledge transfer between different languages and cultures","Organize cultural and scientific events to enhance intellectual communication","Empower youth and emerging initiatives in cultural work and civilizational dialogue"],
+        fields_title: "Fields of Work",
+        f1: { title: "Dialogue between Civilizations and Cultures", desc: "Enhancing mutual understanding and encouraging constructive intellectual discussions among different cultures." },
+        f2: { title: "Cultural and Intellectual Studies", desc: "Producing and supporting research and studies addressing cultural and civilizational issues in multiple languages." },
+        f3: { title: "International Cultural Exchange", desc: "Strengthening cultural interaction between individuals and institutions through international programs and initiatives." },
+        f4: { title: "Cultural and Knowledge Publishing", desc: "Publishing articles, research, and intellectual materials across various platforms." },
+        f5: { title: "Translation and Knowledge Transfer", desc: "Supporting the translation of intellectual and cultural works between languages to enhance mutual understanding." },
+        f6: { title: "Non-formal Cultural Education", desc: "Organizing educational programs and workshops to enhance cultural awareness." },
+        f7: { title: "Organizing Cultural Events", desc: "Holding conferences, seminars, and intellectual forums at local and international levels." },
+        f8: { title: "Cultural Diplomacy", desc: "Enhancing the role of culture as a means of rapprochement between peoples and building positive international relations." },
+        f9: { title: "Empowering Youth in Cultural Work", desc: "Supporting youth initiatives and developing their skills in the fields of culture and dialogue." },
+        f10: { title: "Cultural Diversity and Identity Protection", desc: "Promoting respect for cultural diversity and preserving different cultural identities." },
+        f11: { title: "Digital Cultural Media", desc: "Using digital media to disseminate culture and enhance global dialogue." },
+        f12: { title: "Building International Partnerships", desc: "Collaboration with universities, research centers, and cultural organizations around the world." },
+        f13: { title: "Peace and Coexistence", desc: "Promoting a culture of peace through cultural work." },
+        f14: { title: "Cultural Innovation", desc: "Encouraging the use of technology and creativity in developing cultural projects." },
+        target_title: "Target Groups",
+        t1: { title: "Researchers and Academics", desc: "In the fields of cultural and intellectual studies" }, t2: { title: "Intellectuals and Thinkers", desc: "From various intellectual and civilizational orientations" },
+        t3: { title: "Writers and Literary Figures", desc: "Interested in culture and cultural diversity issues" }, t4: { title: "Youth Interested in Culture", desc: "Especially those with cultural initiatives" },
+        t5: { title: "University Students", desc: "In humanities and social sciences" }, t6: { title: "Universities and Academic Institutions", desc: "Seeking cultural and scientific cooperation" },
+        t7: { title: "Research and Intellectual Centers", desc: "Interested in civilizational dialogue" }, t8: { title: "Cultural Institutions", desc: "Local and international" },
+        t9: { title: "International Organizations", desc: "Concerned with cultural dialogue and civilizational diversity" }, t10: { title: "Translators", desc: "Interested in transferring knowledge between languages and cultures" },
+        t11: { title: "Media Professionals and Content Creators", desc: "On digital platforms" }, t12: { title: "Cultural Policy Makers", desc: "Interested in cultural diplomacy" },
+        values_title: "Our Core Values",
+        v1: { title: "Constructive Cultural Dialogue", desc: "As a tool to bring perspectives closer among peoples" }, v2: { title: "Respect for Civilizational Diversity", desc: "Non-discrimination between cultures" },
+        v3: { title: "Cooperation and Partnership", desc: "Between peoples and institutions to achieve common goals" }, v4: { title: "Knowledge Dissemination", desc: "In a transparent and accessible manner for all" },
+        v5: { title: "Enhancing Human Understanding", desc: "As a basis for peace and peaceful coexistence" }, v6: { title: "Cultural Sustainability", desc: "Preserving heritage and cultural identity" },
+        v7: { title: "Innovation and Creativity", desc: "In presenting cultural and intellectual projects" }, v8: { title: "Credibility and Transparency", desc: "In institutional and administrative work" },
+        contact_title: "Contact Us",
+        contact_message: "<p>The Global Cultural Bridge initiative is pleased to receive your inquiries and suggestions, and we welcome all opinions and ideas that contribute to enhancing cultural and civilizational dialogue.</p>",
+        contact_email_title: "Email", contact_website_title: "Our Website on Ahewar.org", contact_instagram_title: "Instagram",
+        contact_footer: "<p>We are happy to communicate with you and share in building bridges of knowledge and culture between peoples.</p>",
+        founder_title: "Founder", founder_name: "Fouad Ahmed Ayesh", founder_title_txt: "Writer and researcher in cultural and international legal affairs, from the Hashemite Kingdom of Jordan",
+        founder_badges: ['<i class="fas fa-globe"></i> Civilizational Dialogue','<i class="fas fa-landmark"></i> Cultural Diplomacy','<i class="fas fa-tv"></i> Media','<i class="fas fa-gavel"></i> Legal Thought','<i class="fas fa-language"></i> Language','<i class="fas fa-handshake"></i> Humanitarian Cooperation'],
+        founder_message: `<h4>📖 Founder's Statement</h4><p>We believe that culture is not merely an inheritance, but a living force capable of building bridges between peoples and enhancing human understanding in a changing world.</p><p>From this standpoint, the "Global Cultural Bridge" initiative was launched to be an open space for intellectual dialogue, a platform for exchanging ideas and enhancing communication between different cultures, based on a firm conviction that dialogue is the path toward a more cooperative and stable future.</p><p>Through this initiative, we seek to contribute to strengthening Arab cultural presence on the international scene and building human bonds based on mutual respect and cultural diversity.</p><p style="margin-top: 1rem; color: #d4af37;">Fouad Ahmed Ayesh</p>`,
+        thanks_message: `<h4>🙏 Thanks and Appreciation</h4><p>We extend our sincere thanks and appreciation to all parties, institutions, and individuals who have contributed to supporting the "Global Cultural Bridge" initiative, and have contributed to the success of its activities and the enhancement of its cultural message.</p><p>This work would not have been achieved without the spirit of cooperation and shared belief in the importance of civilizational dialogue and cultural exchange between peoples.</p><p>We express our pride in the partnerships and collaborations that have contributed to building this initiative, and we look forward to more joint work that reinforces the values of understanding and cultural openness.</p><p>We also appreciate the support of all participants and followers who have been part of this cultural journey.</p><p style="margin-top: 1rem; color: #d4af37;">With sincere thanks and appreciation.</p>`,
+        footer_copyright: "© 2025 Global Cultural Bridge (GCB)", footer_tagline: "Building human bridges based on knowledge, understanding, and mutual respect"
+      }
+    };
+    // إضافة الترجمات للغات الأخرى (فرنسي، روسي، إسباني) بنفس النمط - سيتم إضافتها كاملة في الملف النهائي
+    translations.fr = { ...translations.en, logo_sub: "Pont Culturel Mondial", hero_title1: "Pont Culturel Mondial<br><span style='font-size: 2rem;'>GCB</span>", about_charter: "Charte interne de GCB", contact_title: "Contactez-nous", contact_message: "<p>L'initiative Pont Culturel Mondial est heureuse de recevoir vos demandes et suggestions...</p>", contact_email_title: "E-mail", contact_website_title: "Notre site sur Ahewar.org", contact_instagram_title: "Instagram", contact_footer: "<p>Nous sommes heureux de communiquer avec vous...</p>", founder_title: "Fondateur", footer_copyright: "© 2025 Pont Culturel Mondial (GCB)" };
+    translations.ru = { ...translations.en, logo_sub: "Глобальный культурный мост", hero_title1: "Глобальный культурный мост<br><span style='font-size: 2rem;'>GCB</span>", about_charter: "Внутренняя хартия GCB", contact_title: "Свяжитесь с нами", contact_message: "<p>Инициатива «Глобальный культурный мост» рада получать ваши запросы...</p>", contact_email_title: "Электронная почта", contact_website_title: "Наш сайт на Ahewar.org", contact_instagram_title: "Instagram", contact_footer: "<p>Мы рады общению с вами...</p>", founder_title: "Основатель", footer_copyright: "© 2025 Глобальный культурный мост (GCB)" };
+    translations.es = { ...translations.en, logo_sub: "Puente Cultural Global", hero_title1: "Puente Cultural Global<br><span style='font-size: 2rem;'>GCB</span>", about_charter: "Carta interna de GCB", contact_title: "Contáctenos", contact_message: "<p>La iniciativa Puente Cultural Global se complace en recibir sus consultas...</p>", contact_email_title: "Correo electrónico", contact_website_title: "Nuestro sitio en Ahewar.org", contact_instagram_title: "Instagram", contact_footer: "<p>Nos complace comunicarnos con usted...</p>", founder_title: "Fundador", footer_copyright: "© 2025 Puente Cultural Global (GCB)" };
+
+    let currentLang = "ar";
+
+    function renderGoals() {
+      const list = document.getElementById("goalsList");
+      if(list) list.innerHTML = translations[currentLang].goals_list.map(text => `<li>${text}</li>`).join('');
+    }
+
+    function renderCardsGeneric(containerId, data) {
+      const container = document.getElementById(containerId);
+      if(container) container.innerHTML = data.map(item => `<div class="card"><div class="card-icon"><i class="${item.icon}"></i></div><h3>${translations[currentLang][item.key].title}</h3><p>${translations[currentLang][item.key].desc}</p></div>`).join('');
+    }
+
+    function renderFounderBadges() {
+      const container = document.getElementById("founderBadges");
+      if(container) container.innerHTML = translations[currentLang].founder_badges.map(b => `<span class="card" style="display: inline-block; padding: 0.4rem 1rem; font-size: 0.8rem;">${b}</span>`).join('');
+    }
+
+    function updateAllTexts() {
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if(translations[currentLang][key] !== undefined) el.innerHTML = translations[currentLang][key];
+      });
+      const founderQuoteDiv = document.querySelector('.founder-quote');
+      const thanksDiv = document.querySelector('.thanks-section');
+      if(founderQuoteDiv) founderQuoteDiv.innerHTML = translations[currentLang].founder_message;
+      if(thanksDiv) thanksDiv.innerHTML = translations[currentLang].thanks_message;
+      const contactMsgDivs = document.querySelectorAll('.contact-message');
+      if(contactMsgDivs.length >= 2) { contactMsgDivs[0].innerHTML = translations[currentLang].contact_message; contactMsgDivs[1].innerHTML = translations[currentLang].contact_footer; }
+      const contactTitles = document.querySelectorAll('.contact-card h3');
+      if(contactTitles.length >= 3) { contactTitles[0].innerHTML = translations[currentLang].contact_email_title; contactTitles[1].innerHTML = translations[currentLang].contact_website_title; contactTitles[2].innerHTML = translations[currentLang].contact_instagram_title; }
+      renderGoals(); renderCardsGeneric("fieldsGrid", fieldsData); renderCardsGeneric("targetGrid", targetData); renderCardsGeneric("valuesGrid", valuesData); renderFounderBadges();
+      document.documentElement.setAttribute("dir", currentLang === "ar" ? "rtl" : "ltr");
+      document.documentElement.setAttribute("lang", currentLang);
+    }
+
+    // دوال القائمة الجانبية
+    function openMenu() { document.getElementById('sideMenu').classList.add('open'); document.getElementById('menuOverlay').classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { document.getElementById('sideMenu').classList.remove('open'); document.getElementById('menuOverlay').classList.remove('active'); document.body.style.overflow = ''; }
+    document.getElementById('menuToggle')?.addEventListener('click', openMenu);
+    document.getElementById('closeMenuBtn')?.addEventListener('click', closeMenu);
+    document.getElementById('menuOverlay')?.addEventListener('click', closeMenu);
+    document.querySelectorAll('.side-nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+
+    // دوال الـ Lightbox
+    function openLightbox() {
+      const founderImgDiv = document.getElementById('founderImg');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      let imgUrl = '';
+      if (founderImgDiv.style.backgroundImage) {
+        const match = founderImgDiv.style.backgroundImage.match(/url\(["']?([^"']*)["']?\)/);
+        if (match && match[1]) imgUrl = match[1];
+      }
+      if (imgUrl && imgUrl !== '') lightboxImg.src = imgUrl;
+      else { lightboxImg.src = ''; lightboxImg.alt = 'صورة المؤسس غير متوفرة حالياً'; }
+      lightbox.classList.add('active');
+    }
+    function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.getElementById('lightboxImg').src = ''; }
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') { closeLightbox(); closeMenu(); } });
+
+    // تحميل الصور
+    window.addEventListener('load', () => {
+      updateAllTexts();
+      const logoImg = document.getElementById('logoImg');
+      if(logoImg) { logoImg.style.backgroundImage = "url('images/logo/gcb-logo.png')"; logoImg.style.backgroundSize = 'cover'; logoImg.innerHTML = ''; }
+      const mobileLogoImg = document.getElementById('mobileLogoImg');
+      if(mobileLogoImg) { mobileLogoImg.style.backgroundImage = "url('images/logo/gcb-logo.png')"; mobileLogoImg.style.backgroundSize = 'cover'; mobileLogoImg.innerHTML = ''; }
+      const founderImgDiv = document.getElementById('founderImg');
+      if(founderImgDiv) { founderImgDiv.style.backgroundImage = "url('images/founder/founder-fouad.jpg')"; founderImgDiv.style.backgroundSize = 'cover'; founderImgDiv.innerHTML = ''; }
+    });
+
+    // تغيير اللغة
+    document.querySelectorAll('.desktop-flags span, .side-flags span').forEach(flag => {
+      flag.addEventListener('click', () => { currentLang = flag.getAttribute('data-lang'); updateAllTexts(); closeMenu(); });
+    });
+
+    // دوال التمرير
+    const sections = document.querySelectorAll('.section');
+    const navItems = document.querySelectorAll('.desktop-nav-links a, .side-nav-links a');
+    const navbar = document.getElementById('navbar');
+    const progressBar = document.getElementById('progressBar');
+    function checkVisibility() {
+      const scrollPos = window.scrollY, windowHeight = window.innerHeight, docHeight = document.documentElement.scrollHeight;
+      if(progressBar) progressBar.style.width = (scrollPos / (docHeight - windowHeight) * 100) + '%';
+      if(navbar) navbar.classList.toggle('scrolled', scrollPos > 50);
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < windowHeight - 100 && rect.bottom > 100) {
+          section.classList.add('visible');
+          const id = section.getAttribute('id');
+          navItems.forEach(link => { link.classList.remove('active'); if(link.getAttribute('data-section') === id) link.classList.add('active'); });
+        }
+      });
+    }
+    function scrollToSection(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); closeMenu(); }
+    function scrollToNextSection() {
+      let current = null;
+      sections.forEach(section => { const rect = section.getBoundingClientRect(); if (rect.top < 150 && rect.top > -100) current = section; });
+      if(current) { const next = current.nextElementSibling; if(next?.classList.contains('section')) next.scrollIntoView({ behavior: 'smooth' }); }
+    }
+    window.addEventListener('scroll', checkVisibility);
+    window.addEventListener('load', checkVisibility);
+    navItems.forEach(link => link.addEventListener('click', (e) => { e.preventDefault(); scrollToSection(link.getAttribute('data-section')); }));
+
+    // الجسيمات
+    (function createParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        const p = document.createElement('div'); p.classList.add('particle');
+        const size = Math.random() * 4 + 1; p.style.width = size + 'px'; p.style.height = size + 'px';
+        p.style.left = Math.random() * 100 + '%'; p.style.animationDelay = Math.random() * 10 + 's';
+        p.style.animationDuration = (Math.random() * 12 + 6) + 's'; container.appendChild(p);
+      }
+    })();
+  </script>
+</body>
+</html>
